@@ -1,11 +1,16 @@
 def print_header
-    puts "The students of Villains Academy"
-    puts "-------------"
+    linewidth = 60
+    puts (("The students of Villains Academy").center linewidth)
+    puts (("-------------").center linewidth)
 end
 def print(students)
+  linewidth = 60
     students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort), Favourite hobby: #{student[:hobbies]}, 
-        Country of birth: #{student[:country_of_birth]}, Student's Height: #{student[:height]}"
+        puts ("#{student[:name]}:").ljust(linewidth/2) + ("(#{student[:cohort]} cohort)").rjust(linewidth/2)
+        puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobbies]}").rjust(linewidth/2)
+        puts ("Country of birth: ").ljust(linewidth/2) + ("#{student[:country_of_birth]}").rjust(linewidth/2)
+        puts ("Student's Height: ").ljust(linewidth/2) + ("#{student[:height]}").rjust(linewidth/2)
+        puts "------------------------------------------------------------"
     end
 end
 def print_footer(names)
