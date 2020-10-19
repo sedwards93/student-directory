@@ -18,22 +18,37 @@ def print_footer(names)
 end
 
 def input_students
-    puts "Please enter the name of the student, or hit return twice to finish"
-    students = []
-    name = gets.chomp
-    while !name.empty? do
+  puts "Please enter the name of the student, or hit return twice to finish"
+  students = []
+  name = gets.chomp
+  while !name.empty? do
+  puts "What cohort is the student a member of?"
+  cohort = gets.chomp
+    while true
+      months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""]
+        if months.include?(cohort)
+          break
+        else
+          puts "Please enter the cohort month again"
+          cohort = gets.chomp
+        end
+    end
+    if cohort == ""
+    cohort = "October".to_sym
+    else cohort.to_sym
+    end
     puts "Please enter the student's hobby"
     hobby = gets.chomp
     puts "Please enter the student's country of birth"
     country = gets.chomp
     puts "Please enter the student's height in cm"
     height = gets.chomp
-        students << {name: name, cohort: :November, hobbies: hobby, country_of_birth: country, height: height}
-        puts "Now we have #{students.count} students"
-        puts "Please enter the name of the next student, or hit return to finish"
-        name = gets.chomp
-    end
-    students
+      students << {name: name, cohort: cohort, hobbies: hobby, country_of_birth: country, height: height}
+      puts "Now we have #{students.count} students"
+      puts "Please enter the name of the next student, or hit return to finish"
+      name = gets.chomp
+  end
+  students
 end
 
 students = input_students
