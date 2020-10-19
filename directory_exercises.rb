@@ -3,10 +3,9 @@ def print_header
     puts "-------------"
 end
 def print(students)
-    counter = 0
-    while counter < students.length
-        puts "#{students[counter][:name]} (#{students[counter][:cohort]} cohort)"
-        counter += 1
+    students.each do |student|
+        puts "#{student[:name]} (#{student[:cohort]} cohort), Favourite hobby: #{student[:hobbies]}, 
+        Country of birth: #{student[:country_of_birth]}, Student's Height: #{student[:height]}"
     end
 end
 def print_footer(names)
@@ -14,13 +13,19 @@ def print_footer(names)
 end
 
 def input_students
-    puts "Please enter the names of the students"
-    puts "To finish, just hit return twice"
+    puts "Please enter the name of the student, or hit return twice to finish"
     students = []
     name = gets.chomp
     while !name.empty? do
-        students << {name: name, cohort: :November}
+    puts "Please enter the student's hobby"
+    hobby = gets.chomp
+    puts "Please enter the student's country of birth"
+    country = gets.chomp
+    puts "Please enter the student's height in cm"
+    height = gets.chomp
+        students << {name: name, cohort: :November, hobbies: hobby, country_of_birth: country, height: height}
         puts "Now we have #{students.count} students"
+        puts "Please enter the name of the next student, or hit return to finish"
         name = gets.chomp
     end
     students
