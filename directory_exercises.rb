@@ -5,7 +5,12 @@ def print_header
 end
 def print(students)
   linewidth = 60
-    students.each do |student|
+  order = ["January", "February", "March", "April", "May", "June", "July",
+  "August", "September", "October", "November", "December"]
+  sorted = students.sort_by {|student| 
+  [order.index(student[:cohort])] 
+  }
+    sorted.each do |student|
         puts ("#{student[:name]}:").ljust(linewidth/2) + ("(#{student[:cohort]} cohort)").rjust(linewidth/2)
         puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobbies]}").rjust(linewidth/2)
         puts ("Country of birth: ").ljust(linewidth/2) + ("#{student[:country_of_birth]}").rjust(linewidth/2)
@@ -34,8 +39,7 @@ def input_students
         end
     end
     if cohort == ""
-    cohort = "October".to_sym
-    else cohort.to_sym
+    cohort = "October"
     end
     puts "Please enter the student's hobby"
     hobby = gets.chomp
