@@ -8,31 +8,36 @@ def input_students
   puts "Please enter the name of the student, or hit return twice to finish"
   name = STDIN.gets.chomp
   while !name.empty? do
+  cohort = cohort_month
+  puts "Please enter the student's hobby"
+  hobby = STDIN.gets.chomp
+  puts "Please enter the student's country of birth"
+  country = STDIN.gets.chomp
+  puts "Please enter the student's height in cm"
+  height = STDIN.gets.chomp
+    adding_students(name, cohort, hobby, country, height)
+    puts "Now we have #{@students.count} students"
+    puts "Please enter the name of the next student, or hit return to finish"
+    name = STDIN.gets.chomp
+  end
+end
+
+def cohort_month
+  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   puts "What cohort is the student a member of?"
   cohort = STDIN.gets.chomp
-    while true
-      months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""]
-        if months.include?(cohort)
-          break
-        else
-          puts "Please enter the cohort month again"
-          cohort = STDIN.gets.chomp
-        end
+  while true
+    if months.include?(cohort)
+      break
+    elsif cohort == ""
+      cohort = "October"
+      break
+    else
+      puts "Please enter the cohort month again"
+      cohort = STDIN.gets.chomp
     end
-    if cohort == ""
-    cohort = "October"
-    end
-    puts "Please enter the student's hobby"
-    hobby = STDIN.gets.chomp
-    puts "Please enter the student's country of birth"
-    country = STDIN.gets.chomp
-    puts "Please enter the student's height in cm"
-    height = STDIN.gets.chomp
-      adding_students(name, cohort, hobby, country, height)
-      puts "Now we have #{@students.count} students"
-      puts "Please enter the name of the next student, or hit return to finish"
-      name = STDIN.gets.chomp
   end
+  cohort
 end
 
 def print_menu
@@ -45,17 +50,17 @@ end
 
 def process(selection)
   case selection
-  when "1"
+    when "1"
     input_students
-  when "2"
+    when "2"
     show_students
     when "3"
       save_students
     when "4"
       load_students
-  when "9"
+    when "9"
     exit
-  else
+    else
     puts "I don't know what you meant. Try again"
   end
 end
