@@ -132,6 +132,5 @@ def show_students
   print_footer
 end
 
-
-try_load_students
+load_students
 interactive_menu
