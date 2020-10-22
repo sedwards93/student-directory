@@ -3,6 +3,7 @@ def print_header
     puts (("The students of Villains Academy").center linewidth)
     puts (("-------------").center linewidth)
 end
+
 def prints(students)
   linewidth = 60
   order = ["January", "February", "March", "April", "May", "June", "July",
@@ -10,14 +11,17 @@ def prints(students)
   sorted = students.sort_by {|student| 
   [order.index(student[:cohort])] 
   }
+  if students.count != 0
     sorted.each do |student|
-        puts ("#{student[:name]}:").ljust(linewidth/2) + ("(#{student[:cohort]} cohort)").rjust(linewidth/2)
-        puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobbies]}").rjust(linewidth/2)
-        puts ("Country of birth: ").ljust(linewidth/2) + ("#{student[:country_of_birth]}").rjust(linewidth/2)
-        puts ("Student's Height: ").ljust(linewidth/2) + ("#{student[:height]}").rjust(linewidth/2)
-        puts "------------------------------------------------------------"
+      puts ("#{student[:name]}:").ljust(linewidth/2) + ("(#{student[:cohort]} cohort)").rjust(linewidth/2)
+      puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobbies]}").rjust(linewidth/2)
+      puts ("Country of birth: ").ljust(linewidth/2) + ("#{student[:country_of_birth]}").rjust(linewidth/2)
+      puts ("Student's Height: ").ljust(linewidth/2) + ("#{student[:height]}").rjust(linewidth/2)
+      puts "------------------------------------------------------------"
     end
+  end
 end
+
 def print_footer(names)
   if names.count == 1
     puts "Overall, we have 1 great student"
