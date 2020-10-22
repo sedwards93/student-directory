@@ -3,7 +3,7 @@ def print_header
     puts (("The students of Villains Academy").center linewidth)
     puts (("-------------").center linewidth)
 end
-def print(students)
+def prints(students)
   linewidth = 60
   order = ["January", "February", "March", "April", "May", "June", "July",
   "August", "September", "October", "November", "December"]
@@ -65,7 +65,8 @@ def input_students
   end
   students
 end
+
 students = input_students
 print_header
-print(students)
+prints(students)
 print_footer(students)
