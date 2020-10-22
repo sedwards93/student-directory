@@ -2,32 +2,32 @@
 
 def input_students
   puts "Please enter the name of the student, or hit return twice to finish"
-  name = gets.chomp
+  name = STDIN.gets.chomp
   while !name.empty? do
   puts "What cohort is the student a member of?"
-  cohort = gets.chomp
+  cohort = STDIN.gets.chomp
     while true
       months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""]
         if months.include?(cohort)
           break
         else
           puts "Please enter the cohort month again"
-          cohort = gets.chomp
+          cohort = STDIN.gets.chomp
         end
     end
     if cohort == ""
     cohort = "October"
     end
     puts "Please enter the student's hobby"
-    hobby = gets.chomp
+    hobby = STDIN.gets.chomp
     puts "Please enter the student's country of birth"
-    country = gets.chomp
+    country = STDIN.gets.chomp
     puts "Please enter the student's height in cm"
-    height = gets.chomp
+    height = STDIN.gets.chomp
       @students << {name: name, cohort: cohort, hobbies: hobby, country_of_birth: country, height: height}
       puts "Now we have #{@students.count} students"
       puts "Please enter the name of the next student, or hit return to finish"
-      name = gets.chomp
+      name = STDIN.gets.chomp
   end
 end
 
@@ -60,7 +60,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -100,13 +100,25 @@ def save_students
   file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort, hobbies, country_of_birth, height = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, country_of_birth: country_of_birth, height: height}
   end
   file.close
+end
+
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil? 
+  if File.exists?(filename) 
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else 
+    puts "Sorry, #{filename} doesn't exist."
+    exit 
+  end
 end
 
 
@@ -117,5 +129,5 @@ def show_students
 end
 
 
-
+try_load_students
 interactive_menu
