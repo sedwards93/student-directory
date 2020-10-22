@@ -29,36 +29,42 @@ end
 def input_students
   puts "Please enter the name of the student, or hit return twice to finish"
   students = []
-  name = gets.chomp
+  name = gets
+  name = name.gsub(/\n/, "")
   while !name.empty? do
   puts "What cohort is the student a member of?"
-  cohort = gets.chomp
+  cohort = gets
+  cohort = cohort.gsub(/\n/, "")
     while true
       months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""]
         if months.include?(cohort)
           break
         else
           puts "Please enter the cohort month again"
-          cohort = gets.chomp
+          cohort = gets
+          cohort = cohort.gsub(/\n/, "")
         end
     end
     if cohort == ""
     cohort = "October"
     end
     puts "Please enter the student's hobby"
-    hobby = gets.chomp
+    hobby = gets
+    hobby = hobby.gsub(/\n/, "")
     puts "Please enter the student's country of birth"
-    country = gets.chomp
+    country = gets
+    country = country.gsub(/\n/, "")
     puts "Please enter the student's height in cm"
-    height = gets.chomp
+    height = gets
+    height = height.gsub(/\n/, "")
       students << {name: name, cohort: cohort, hobbies: hobby, country_of_birth: country, height: height}
       puts "Now we have #{students.count} students"
       puts "Please enter the name of the next student, or hit return to finish"
-      name = gets.chomp
+      name = gets
+      name = name.gsub(/\n/, "")
   end
   students
 end
-
 students = input_students
 print_header
 print(students)
