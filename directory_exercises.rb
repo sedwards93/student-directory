@@ -1,5 +1,9 @@
 @students = []
 
+def adding_students(name, cohort, hobby, country, height)
+  @students << {name: name, cohort: cohort.to_sym, hobbies: hobby, country_of_birth: country, height: height}
+end
+
 def input_students
   puts "Please enter the name of the student, or hit return twice to finish"
   name = STDIN.gets.chomp
@@ -24,7 +28,7 @@ def input_students
     country = STDIN.gets.chomp
     puts "Please enter the student's height in cm"
     height = STDIN.gets.chomp
-      @students << {name: name, cohort: cohort, hobbies: hobby, country_of_birth: country, height: height}
+      adding_students(name, cohort, hobby, country, height)
       puts "Now we have #{@students.count} students"
       puts "Please enter the name of the next student, or hit return to finish"
       name = STDIN.gets.chomp
@@ -93,7 +97,7 @@ end
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:hobbies], student[:country_of_birth], student[:height]]
+    student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
   csv_line = student_data.join(",")
   file.puts csv_line
   end
@@ -103,21 +107,21 @@ end
 def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
-  name, cohort, hobbies, country_of_birth, height = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym, hobbies: hobbies, country_of_birth: country_of_birth, height: height}
+  name, cohort, hobby, country_of_birth, height = line.chomp.split(',')
+  adding_students(name, cohort, hobby, country_of_birth, height)
   end
   file.close
 end
 
 def try_load_students
   filename = ARGV.first
-  return if filename.nil? 
-  if File.exists?(filename) 
+  return if filename.nil?
+  if File.exists?(filename)
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
-  else 
+  else
     puts "Sorry, #{filename} doesn't exist."
-    exit 
+    exit
   end
 end
 
