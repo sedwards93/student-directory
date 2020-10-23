@@ -1,7 +1,7 @@
 @students = []
 
 def adding_students(name, cohort, hobby, country, height)
-  @students << {name: name, cohort: cohort.to_sym, hobbies: hobby, country_of_birth: country, height: height}
+  @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country_of_birth: country, height: height}
 end
 
 def input_students
@@ -89,7 +89,7 @@ def print_student_list
   linewidth = 60
     @students.each do |student|
       puts ("#{student[:name]}:").ljust(linewidth/2) + ("(#{student[:cohort]} cohort)").rjust(linewidth/2)
-      puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobbies]}").rjust(linewidth/2)
+      puts ("Favourite hobby:").ljust(linewidth/2) + ("#{student[:hobby]}").rjust(linewidth/2)
       puts ("Country of birth: ").ljust(linewidth/2) + ("#{student[:country_of_birth]}").rjust(linewidth/2)
       puts ("Student's Height: ").ljust(linewidth/2) + ("#{student[:height]}").rjust(linewidth/2)
       puts "------------------------------------------------------------"
@@ -108,24 +108,24 @@ end
 def save_students
   puts "Please specify the name of the file you are saving"
   filename = STDIN.gets.gsub(/\s+/, "")  + ".csv"
-  file = File.open(filename, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
-  csv_line = student_data.join(",")
-  file.puts csv_line
+  File.open(filename, "w") do |f|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
+      csv_line = student_data.join(",")
+      f.puts csv_line
+      end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  puts "Please type the name of the file you would like to load"
+  puts "Please type the name of the file you would like to load."
   filename = STDIN.gets.chomp
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort, hobby, country_of_birth, height = line.chomp.split(',')
-  adding_students(name, cohort, hobby, country_of_birth, height)
+  File.open("students.csv", "r") do |f|
+    f.readlines.each do |line|
+      name, cohort, hobby, country_of_birth, height = line.chomp.split(',')
+      adding_students(name, cohort, hobby, country_of_birth, height)
+    end
   end
-  file.close
 end
 
 def try_load_students
