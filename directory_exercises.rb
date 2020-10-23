@@ -43,22 +43,28 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.cvs"
-  puts "4. Load the list from students.cvs"
+  puts "3. Save the list"
+  puts "4. Load the list from file"
   puts "9. Exit"
 end
 
 def process(selection)
   case selection
     when "1"
+      puts "You selected: Input the students"
     input_students
     when "2"
+      puts "You selected: Show the students"
     show_students
     when "3"
+      puts "You selected: Save the list"
       save_students
     when "4"
+      puts "You selected: Load the list from file"
       load_students
     when "9"
+      puts "You selected: Exit. Goodbye!"
+      sleep 1
     exit
     else
     puts "I don't know what you meant. Try again"
@@ -100,7 +106,9 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "Please specify the name of the file you are saving"
+  filename = STDIN.gets.gsub(/\s+/, "")  + ".csv"
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
   csv_line = student_data.join(",")
@@ -110,7 +118,9 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  puts "Please type the name of the file you would like to load"
+  filename = STDIN.gets.chomp
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobby, country_of_birth, height = line.chomp.split(',')
   adding_students(name, cohort, hobby, country_of_birth, height)
@@ -137,5 +147,5 @@ def show_students
   print_footer
 end
 
-load_students
+try_load_students
 interactive_menu
