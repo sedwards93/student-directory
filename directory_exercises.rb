@@ -1,4 +1,5 @@
 @students = []
+require "csv"
 
 def adding_students(name, cohort, hobby, country, height)
   @students << {name: name, cohort: cohort.to_sym, hobby: hobby, country_of_birth: country, height: height}
@@ -108,11 +109,10 @@ end
 def save_students
   puts "Please specify the name of the file you are saving"
   filename = STDIN.gets.gsub(/\s+/, "")  + ".csv"
-  File.open(filename, "w") do |f|
+  CSV.open(filename, "w") do |f|
     @students.each do |student|
       student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
-      csv_line = student_data.join(",")
-      f.puts csv_line
+      f << student_data
       end
   end
 end
@@ -120,13 +120,17 @@ end
 def load_students(filename = "students.csv")
   puts "Please type the name of the file you would like to load."
   filename = STDIN.gets.chomp
-  File.open("students.csv", "r") do |f|
-    f.readlines.each do |line|
-      name, cohort, hobby, country_of_birth, height = line.chomp.split(',')
+  if File.exists?(filename)
+    CSV.foreach(filename, "r") do |row|
+      name, cohort, hobby, country_of_birth, height = row
       adding_students(name, cohort, hobby, country_of_birth, height)
     end
+  else
+    puts "This filename does not exist"
   end
 end
+
+
 
 def try_load_students
   filename = ARGV.first
